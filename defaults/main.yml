@@ -1,0 +1,19 @@
+---
+systemd_hostnamectl:
+  path: /usr/bin/hostnamectl
+  chassis: ''
+  deployment: ''
+  hostname: localhost
+  icon_name: ''
+  location: ''
+systemd_localectl:
+  path: /usr/bin/localectl
+  locale: LANG=en_US.UTF-8
+  keymap: us
+  x11_keymap: us
+systemd_timedatectl:
+  path: /usr/bin/timedatectl
+  local_rtc: no
+  ntp: no
+  timezone: UTC
+...
