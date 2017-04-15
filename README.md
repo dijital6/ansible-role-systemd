@@ -40,9 +40,11 @@ None
       roles:
         - role: linuxhq.systemd
           systemd_hostnamectl:
+            path: /bin/hostnamectl
             hostname: "{{ inventory_hostname }}"
             location: "{{ inventory_hostname.split('.')[0] }}"
           systemd_timedatectl:
+            path: /bin/timedatectl
             timezone: 'America/Los_Angeles'
 
 ## License
