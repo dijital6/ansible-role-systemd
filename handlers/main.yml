@@ -1,0 +1,8 @@
+---
+- name: restart systemd-logind
+  tags: systemd
+  become: true
+  service:
+    name: systemd-logind
+    state: restarted
+...

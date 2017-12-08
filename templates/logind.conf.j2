@@ -1,0 +1,37 @@
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+#
+# Entries in this file show the compile time defaults.
+# You can change settings by editing this file.
+# Defaults can be restored by simply deleting this file.
+#
+# See logind.conf(5) for details.
+
+[Login]
+HandleHibernateKey={{ systemd_logind_handlehibernatekey }}
+HandleLidSwitch={{ systemd_logind_handlelidswitch }}
+HandleLidSwitchDocked={{ systemd_logind_handlelidswitchdocked }}
+HandlePowerKey={{ systemd_logind_handlepowerkey }}
+HandleSuspendKey={{ systemd_logind_handlesuspendkey }}
+HibernateKeyIgnoreInhibited={{ 'yes' if systemd_logind_hibernatekeyignoreinhibited is defined and systemd_logind_hibernatekeyignoreinhibited else 'no' }}
+HoldoffTimeoutSec={{ systemd_logind_holdofftimeoutsec }}
+IdleAction={{ systemd_logind_idleaction }}
+IdleActionSec={{ systemd_logind_idleactionsec }}
+InhibitDelayMaxSec={{ systemd_logind_inhibitdelaymaxsec }}
+InhibitorsMax={{ systemd_logind_inhibitorsmax }}
+KillExcludeUsers={{ systemd_logind_killexcludeusers|join(' ') }}
+KillOnlyUsers={{ systemd_logind_killonlyusers|join(' ') }}
+KillUserProcesses={{ 'yes' if systemd_logind_killuserprocesses is defined and systemd_logind_killuserprocesses else 'no' }}
+LidSwitchIgnoreInhibited={{ 'yes' if systemd_logind_lidswitchignoreinhibited is defined and systemd_logind_lidswitchignoreinhibited else 'no' }}
+NAutoVTs={{ systemd_logind_nautovts }}
+PowerKeyIgnoreInhibited={{ 'yes' if systemd_logind_powerkeyignoreinhibited is defined and systemd_logind_powerkeyignoreinhibited else 'no' }}
+RemoveIPC={{ 'yes' if systemd_logind_removeipc is defined and systemd_logind_removeipc else 'no' }}
+ReserveVT={{ systemd_logind_reservevt }}
+RuntimeDirectorySize={{ systemd_logind_runtimedirectorysize }}
+SessionsMax={{ systemd_logind_sessionsmax }}
+SuspendKeyIgnoreInhibited={{ 'yes' if systemd_logind_suspendkeyignoreinhibited is defined and systemd_logind_suspendkeyignoreinhibited else 'no' }}
+UserTasksMax={{ systemd_logind_usertasksmax }}

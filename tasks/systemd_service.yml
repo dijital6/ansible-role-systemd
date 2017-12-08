@@ -1,0 +1,12 @@
+---
+- name: Applying systemd service configurations
+  template:
+    src: "{{ item }}.conf.j2"
+    dest: "/etc/systemd/{{ item }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart systemd-logind
+  with_items:
+    - logind
+...

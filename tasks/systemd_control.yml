@@ -1,0 +1,30 @@
+---
+- name: Applying systemd hostnamectl configurations
+  command: |
+    hostnamectl "set-{{ item|replace('_', '-') }}" "{{ systemd_hostnamectl[item] }}"
+  with_items:
+    - chassis
+    - deployment
+    - hostname
+    - icon_name
+    - location
+  when: systemd_hostnamectl[item] is defined
+
+- name: Applying systemd localectl configurations
+  command: |
+    localectl "set-{{ item|replace('_', '-') }}" "{{ systemd_localectl[item] }}"
+  with_items:
+    - locale
+    - keymap
+    - x11_keymap
+  when: systemd_localectl[item] is defined
+
+- name: Applying systemd timedatectl configurations
+  command: |
+    timedatectl "set-{{ item|replace('_', '-') }}" "{{ systemd_timedatectl[item] }}"
+  with_items:
+    - local_rtc
+    - ntp
+    - timezone
+  when: systemd_timedatectl[item] is defined
+...

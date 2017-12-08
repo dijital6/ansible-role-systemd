@@ -1,47 +1,19 @@
 ---
-- name: Ensure that systemd is installed
+- name: Ensure that the systemd package is installed
   tags: systemd
+  become: true
   yum:
     name: systemd
     state: present
-    update_cache: yes
   register: systemd_yum
 
 - block:
-    - name: Execute {{ systemd_hostnamectl.path }} with command {{ item }}
-      command: |
-        {{ systemd_hostnamectl.path }} set-{{ item|replace('_', '-') }} "{{ systemd_hostnamectl[item] }}"
-      with_items:
-        - chassis
-        - deployment
-        - hostname
-        - icon_name
-        - location
-      when:
-        - systemd_hostnamectl.path is defined
-        - systemd_hostnamectl[item] is defined
+    - name: Executing systemd control tasks
+      import_tasks: systemd_control.yml
 
-    - name: Execute {{ systemd_localectl.path }} with command {{ item }}
-      command: |
-        {{ systemd_localectl.path }} set-{{ item|replace('_', '-') }} "{{ systemd_localectl[item] }}"
-      with_items:
-        - locale
-        - keymap
-        - x11_keymap
-      when:
-        - systemd_localectl.path is defined
-        - systemd_localectl[item] is defined
-
-    - name: Execute {{ systemd_timedatectl.path }} with command {{ item }}
-      command: |
-        {{ systemd_timedatectl.path }} set-{{ item|replace('_', '-') }} "{{ systemd_timedatectl[item] }}"
-      with_items:
-        - local_rtc
-        - ntp
-        - timezone
-      when:
-        - systemd_timedatectl.path is defined
-        - systemd_timedatectl[item] is defined
+    - name: Executing systemd service tasks
+      import_tasks: systemd_service.yml
   tags: systemd
+  become: true
   when: systemd_yum|success
 ...
