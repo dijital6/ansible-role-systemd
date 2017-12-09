@@ -13,6 +13,10 @@
 
     - name: Executing systemd service tasks
       import_tasks: systemd_service.yml
+
+    - name: Executing systemd rc.local tasks
+      import_tasks: systemd_rc_local.yml
+      when: systemd_rc_local|length > 0
   tags: systemd
   become: true
   when: systemd_yum|success

@@ -32,6 +32,7 @@ systemd_localectl:
   locale: LANG=en_US.UTF-8
   keymap: us
   x11_keymap: us
+systemd_rc_local: []
 systemd_timedatectl:
   local_rtc: no
   ntp: no

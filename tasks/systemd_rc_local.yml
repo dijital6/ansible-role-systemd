@@ -1,0 +1,11 @@
+---
+- name: Applying rc.local configurations and permissions
+  lineinfile:
+    path: /etc/rc.d/rc.local
+    line: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0750
+    state: present
+  with_items: "{{ systemd_rc_local }}"
+...
