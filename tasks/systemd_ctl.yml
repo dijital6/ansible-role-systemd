@@ -1,30 +1,31 @@
 ---
 - name: Attempting to apply systemd hostnamectl configurations
+  tags: systemd
+  become: true
   command: |
-    hostnamectl "set-{{ item|replace('_', '-') }}" "{{ systemd_hostnamectl[item] }}"
-  with_items:
-    - chassis
-    - deployment
-    - hostname
-    - icon_name
-    - location
-  when: systemd_hostnamectl[item] is defined
+    /usr/bin/hostnamectl "set-{{ item.key|replace('_', '-') }}" "{{ item.value }}"
+  with_dict: "{{ systemd_hostnamectl }}"
+  when:
+    - item.key is defined
+    - item.value is defined
 
 - name: Attempting to apply systemd localectl configurations
+  tags: systemd
+  become: true
   command: |
-    localectl "set-{{ item|replace('_', '-') }}" "{{ systemd_localectl[item] }}"
-  with_items:
-    - locale
-    - keymap
-    - x11_keymap
-  when: systemd_localectl[item] is defined
+    /usr/bin/localectl "set-{{ item.key|replace('_', '-') }}" "{{ item.value }}"
+  with_dict: "{{ systemd_localectl }}"
+  when:
+    - item.key is defined
+    - item.value is defined
 
 - name: Attempting to apply systemd timedatectl configurations
+  tags: systemd
+  become: true
   command: |
-    timedatectl "set-{{ item|replace('_', '-') }}" "{{ systemd_timedatectl[item] }}"
-  with_items:
-    - local_rtc
-    - ntp
-    - timezone
-  when: systemd_timedatectl[item] is defined
+    /usr/bin/timedatectl "set-{{ item.key|replace('_', '-') }}" "{{ item.value }}"
+  with_dict: "{{ systemd_timedatectl }}"
+  when:
+    - item.key is defined
+    - item.value is defined
 ...

@@ -8,8 +8,6 @@
   register: systemd_yum
 
 - name: Attempting to import systemd related tasks
-  tags: systemd
-  become: true
   block:
     - import_tasks: systemd_ctl.yml
     - import_tasks: systemd_rcl.yml

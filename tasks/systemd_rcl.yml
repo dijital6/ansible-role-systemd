@@ -1,5 +1,7 @@
 ---
 - name: Attempting to overlay rc.local configurations and permissions
+  tags: systemd
+  become: true
   lineinfile:
     path: /etc/rc.d/rc.local
     line: "{{ item }}"

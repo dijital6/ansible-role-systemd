@@ -1,5 +1,7 @@
 ---
 - name: Attempting to overlay systemd logind configurations
+  tags: systemd
+  become: true
   template:
     src: "{{ item }}.conf.j2"
     dest: "/etc/systemd/{{ item }}.conf"
