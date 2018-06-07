@@ -1,5 +1,5 @@
 ---
-- name: Applying systemd hostnamectl configurations
+- name: Attempting to apply systemd hostnamectl configurations
   command: |
     hostnamectl "set-{{ item|replace('_', '-') }}" "{{ systemd_hostnamectl[item] }}"
   with_items:
@@ -10,7 +10,7 @@
     - location
   when: systemd_hostnamectl[item] is defined
 
-- name: Applying systemd localectl configurations
+- name: Attempting to apply systemd localectl configurations
   command: |
     localectl "set-{{ item|replace('_', '-') }}" "{{ systemd_localectl[item] }}"
   with_items:
@@ -19,7 +19,7 @@
     - x11_keymap
   when: systemd_localectl[item] is defined
 
-- name: Applying systemd timedatectl configurations
+- name: Attempting to apply systemd timedatectl configurations
   command: |
     timedatectl "set-{{ item|replace('_', '-') }}" "{{ systemd_timedatectl[item] }}"
   with_items:

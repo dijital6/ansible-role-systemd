@@ -1,5 +1,5 @@
 ---
-- name: Applying systemd service configurations
+- name: Attempting to overlay systemd logind configurations
   template:
     src: "{{ item }}.conf.j2"
     dest: "/etc/systemd/{{ item }}.conf"

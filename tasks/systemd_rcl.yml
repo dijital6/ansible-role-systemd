@@ -1,5 +1,5 @@
 ---
-- name: Applying rc.local configurations and permissions
+- name: Attempting to overlay rc.local configurations and permissions
   lineinfile:
     path: /etc/rc.d/rc.local
     line: "{{ item }}"
