@@ -10,4 +10,5 @@
     mode: 0750
     state: present
   with_items: "{{ systemd_rc_local }}"
+  when: systemd_rc_local|length > 0
 ...
