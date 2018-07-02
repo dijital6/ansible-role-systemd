@@ -1,6 +1,7 @@
 ---
 dependencies: []
 galaxy_info:
+  role_name: systemd
   author: tkimball83
   description: RHEL/CentOS - Configure hostname, locale, and timezone via systemd
   license: GPLv3
