@@ -5,12 +5,66 @@
   yum:
     name: systemd
     state: present
-  register: systemd_yum
 
-- name: Attempting to import systemd related tasks
-  block:
-    - import_tasks: systemd_ctl.yml
-    - import_tasks: systemd_rcl.yml
-    - import_tasks: systemd_svc.yml
-  when: systemd_yum is success
+- name: Attempting to apply systemd hostnamectl configurations
+  tags: systemd
+  become: true
+  command: |
+    /usr/bin/hostnamectl "set-{{ item.key|replace('_', '-') }}" "{{ item.value }}"
+  loop: "{{ systemd_hostnamectl|dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  when:
+    - item.key is defined
+    - item.value is defined
+
+- name: Attempting to apply systemd localectl configurations
+  tags: systemd
+  become: true
+  command: |
+    /usr/bin/localectl "set-{{ item.key|replace('_', '-') }}" "{{ item.value }}"
+  loop: "{{ systemd_localectl|dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  when:
+    - item.key is defined
+    - item.value is defined
+
+- name: Attempting to apply systemd timedatectl configurations
+  tags: systemd
+  become: true
+  command: |
+    /usr/bin/timedatectl "set-{{ item.key|replace('_', '-') }}" "{{ item.value }}"
+  loop: "{{ systemd_timedatectl|dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  when:
+    - item.key is defined
+    - item.value is defined
+
+- name: Attempting to overlay rc.local configurations and permissions
+  tags: systemd
+  become: true
+  lineinfile:
+    path: /etc/rc.d/rc.local
+    line: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0750
+    state: present
+  loop: "{{ systemd_rc_local }}"
+  when: systemd_rc_local|length > 0
+
+- name: Attempting to overlay systemd logind configurations
+  tags: systemd
+  become: true
+  template:
+    src: "{{ item + '.conf.j2' }}"
+    dest: "{{ '/etc/systemd/' + item + '.conf' }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart systemd-logind
+  loop:
+    - logind
 ...
