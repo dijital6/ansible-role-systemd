@@ -14,6 +14,7 @@
   loop: "{{ systemd_hostnamectl|dict2items }}"
   loop_control:
     label: "{{ item.key }}"
+  changed_when: false
   when:
     - item.key is defined
     - item.value is defined
@@ -26,6 +27,7 @@
   loop: "{{ systemd_localectl|dict2items }}"
   loop_control:
     label: "{{ item.key }}"
+  changed_when: false
   when:
     - item.key is defined
     - item.value is defined
@@ -38,6 +40,7 @@
   loop: "{{ systemd_timedatectl|dict2items }}"
   loop_control:
     label: "{{ item.key }}"
+  changed_when: false
   when:
     - item.key is defined
     - item.value is defined
