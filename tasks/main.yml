@@ -6,7 +6,7 @@
     name: systemd
     state: present
 
-- name: Attempting to apply systemd hostnamectl configurations
+- name: Apply systemd hostnamectl configurations
   tags: systemd
   become: true
   command: |
@@ -19,7 +19,7 @@
     - item.key is defined
     - item.value is defined
 
-- name: Attempting to apply systemd localectl configurations
+- name: Apply systemd localectl configurations
   tags: systemd
   become: true
   command: |
@@ -32,7 +32,7 @@
     - item.key is defined
     - item.value is defined
 
-- name: Attempting to apply systemd timedatectl configurations
+- name: Apply systemd timedatectl configurations
   tags: systemd
   become: true
   command: |
@@ -45,7 +45,7 @@
     - item.key is defined
     - item.value is defined
 
-- name: Attempting to overlay rc.local configurations and permissions
+- name: Overlay rc.local configurations and permissions
   tags: systemd
   become: true
   lineinfile:
@@ -58,7 +58,7 @@
   loop: "{{ systemd_rc_local }}"
   when: systemd_rc_local|length > 0
 
-- name: Attempting to overlay systemd logind configurations
+- name: Overlay systemd logind configurations
   tags: systemd
   become: true
   template:
